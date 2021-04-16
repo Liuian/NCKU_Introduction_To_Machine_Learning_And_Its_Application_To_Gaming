@@ -1,0 +1,3 @@
+[submodule "MLGame1"]
+	path = MLGame1
+	url = https://github.com/LanKuDot/MLGame.git
