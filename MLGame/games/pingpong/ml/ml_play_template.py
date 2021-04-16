@@ -58,8 +58,11 @@ class MLPlay:
                         self.des_x = self.ball_x - (420 - self.ball_y)
                     else:                    #ball move right
                         self.des_x = self.ball_x + (420 - self.ball_y)
-                else:                        #ball move up   
-                    self.des_x = 100
+                else:                        #ball move up  
+                    if velo_ball_x < 0:
+                        self.des_x = self.ball_x - (680 - (420 - self.ball_y))
+                    else:
+                        self.des_x = self.ball_x + (680 - (420 - self.ball_y))
                 #adjest the destination into the scene
                 while self.des_x > 200 or self.des_x < 0:
                     if self.des_x > 200:
@@ -71,13 +74,10 @@ class MLPlay:
                     return "NONE"
                 #elif scene_info["platform_1P"][1] <
                 elif scene_info["platform_1P"][0] + 20 < self.des_x: #plate at ball's right, plate move left
-                    #print("l_r ", self.des_x, scene_info["platform_1P"][0])
                     return "MOVE_RIGHT"
                 elif scene_info["platform_1P"][0] + 20 > self.des_x:
-                    #print("m_r ", self.des_x, scene_info["platform_1P"][0])
                     return "MOVE_LEFT"
                 else:
-                    #print("n")
                     return "NONE"
                 #return command
             
@@ -89,8 +89,11 @@ class MLPlay:
                         self.des_x = self.ball_x - (self.ball_y - 80)
                     else:                    #ball move right
                         self.des_x = self.ball_x + (self.ball_y - 80)
-                else:                        #ball move down   
-                    self.des_x = 100
+                else:                        #ball move down  
+                    if velo_ball_x < 0:      #ball move left
+                        self.des_x = self.ball_x - (680 - (self.ball_y - 80))
+                    else:                    #ball move right
+                        self.des_x = self.ball_x + (680 - (self.ball_y - 80))
                 #adjest the destination into the scene
                 while self.des_x > 200 or self.des_x < 0:
                     if self.des_x > 200:
@@ -102,13 +105,10 @@ class MLPlay:
                     return "NONE"
                 #elif scene_info["platform_1P"][1] <
                 elif scene_info["platform_2P"][0] + 20 < self.des_x: #plate at ball's right, plate move left
-                    #print("mor ", self.des_x, scene_info["platform_2P"][0])
                     return "MOVE_RIGHT"
                 elif scene_info["platform_2P"][0] + 20 > self.des_x:
-                    #print("mol ", self.des_x, scene_info["platform_2P"][0])
                     return "MOVE_LEFT"
                 else:
-                    #print("n")
                     return "NONE"
                 #return command
             
