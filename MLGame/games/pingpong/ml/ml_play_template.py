@@ -30,16 +30,17 @@ class MLPlay:
 
         #if self.ball_served is False, serve the ball
         if not self.ball_served:    
-            self.ball_served = True
-            rand = self.random.randint(0, 1)
-            if rand == 0:
-                #print("left")
-                return "serve_to_left"
-                #???command = "SERVE_TO_RIGHT"
-            else:
-                return "serve_to_right"
-                #print("right")
-                #???command = "SERVE_TO_RIGHT"
+            if scene_info["frame"] == 149:
+                self.ball_served = True
+                rand = self.random.randint(0, 1)
+                if rand == 0:
+                    #print("left")
+                    return "SERVE_TO_LEFT"
+                    #???command = "SERVE_TO_RIGHT"
+                else:
+                    return "SERVE_TO_RIGHT"
+                    #print("right")
+                    #???command = "SERVE_TO_RIGHT"
 
         #if self.ball_serve is true, move the plate
         else:                       
@@ -53,12 +54,12 @@ class MLPlay:
 
             if self.side == "1P":
                 #judge the ball's x destination
-                if velo_ball_y > 0:          #ball go down
-                    if velo_ball_x < 0:      #ball move left
+                if velo_ball_y > 0:                                             #ball go down
+                    if velo_ball_x < 0:                                         #ball move left
                         self.des_x = self.ball_x - (420 - self.ball_y)
-                    else:                    #ball move right
+                    else:                                                       #ball move right
                         self.des_x = self.ball_x + (420 - self.ball_y)
-                else:                        #ball move up  
+                else:                                                           #ball move up  
                     if velo_ball_x < 0:
                         self.des_x = self.ball_x - (680 - (420 - self.ball_y))
                     else:
@@ -70,10 +71,12 @@ class MLPlay:
                     else:
                         self.des_x = -self.des_x
                 #judge the cammand
-                if scene_info["frame"] < 150:
+                #print(scene_info["platform_1P"][0], self.des_x)
+                if scene_info["frame"] <= 150:                                  
                     return "NONE"
-                #elif scene_info["platform_1P"][1] <
-                elif scene_info["platform_1P"][0] + 20 < self.des_x: #plate at ball's right, plate move left
+                elif (scene_info["platform_1P"][1] > 410 and scene_info["platform_1P"][0] + 20 + 10 > self.des_x and scene_info["platform_1P"][0] + 20 - 10 < self.des_x):
+                    return "NONE"                                               #when plate in the des_x plate don't move 
+                elif scene_info["platform_1P"][0] + 20 < self.des_x:            #plate at ball's right, plate move left
                     return "MOVE_RIGHT"
                 elif scene_info["platform_1P"][0] + 20 > self.des_x:
                     return "MOVE_LEFT"
@@ -81,18 +84,17 @@ class MLPlay:
                     return "NONE"
                 #return command
             
-            #if self.side == 2P
-            else:                           
+            else:                                                               #if self.side == 2P
                 #judge the ball's x destination
-                if velo_ball_y < 0:          #ball move up
-                    if velo_ball_x < 0:      #ball move left
+                if velo_ball_y < 0:                                             #ball move up
+                    if velo_ball_x < 0:                                         #ball move left
                         self.des_x = self.ball_x - (self.ball_y - 80)
-                    else:                    #ball move right
+                    else:                                                       #ball move right   
                         self.des_x = self.ball_x + (self.ball_y - 80)
-                else:                        #ball move down  
-                    if velo_ball_x < 0:      #ball move left
+                else:                                                           #ball move down  
+                    if velo_ball_x < 0:                                         #ball move left
                         self.des_x = self.ball_x - (680 - (self.ball_y - 80))
-                    else:                    #ball move right
+                    else:                                                       #ball move right
                         self.des_x = self.ball_x + (680 - (self.ball_y - 80))
                 #adjest the destination into the scene
                 while self.des_x > 200 or self.des_x < 0:
@@ -101,10 +103,12 @@ class MLPlay:
                     else:
                         self.des_x = -self.des_x
                 #judge the cammand
-                if scene_info["frame"] < 150:
+                if scene_info["frame"] <= 150:
                     return "NONE"
+                elif (scene_info["platform_2P"][1] < 60 and scene_info["platform_2P"][0] + 20 + 10 > self.des_x and scene_info["platform_2P"][0] + 20 - 10 < self.des_x):
                 #elif scene_info["platform_1P"][1] <
-                elif scene_info["platform_2P"][0] + 20 < self.des_x: #plate at ball's right, plate move left
+                    return "NONE"                                               #when plate in the des_x plate don't move
+                elif scene_info["platform_2P"][0] + 20 < self.des_x:            #plate at ball's right, plate move left
                     return "MOVE_RIGHT"
                 elif scene_info["platform_2P"][0] + 20 > self.des_x:
                     return "MOVE_LEFT"
