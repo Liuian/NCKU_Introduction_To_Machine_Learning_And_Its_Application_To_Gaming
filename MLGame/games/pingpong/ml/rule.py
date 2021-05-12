@@ -37,11 +37,8 @@ class MLPlay:
                 if rand == 0:
                     #print("left")
                     return "SERVE_TO_LEFT"
-                    #???command = "SERVE_TO_RIGHT"
                 else:
                     return "SERVE_TO_RIGHT"
-                    #print("right")
-                    #???command = "SERVE_TO_RIGHT"
 
         #if self.ball_serve is true, move the plate
         else:                       
@@ -83,7 +80,6 @@ class MLPlay:
                     return "MOVE_LEFT"
                 else:
                     return "NONE"
-                #return command
             
             else:                                                               #if self.side == 2P
                 #judge the ball's x destination
@@ -115,7 +111,6 @@ class MLPlay:
                     return "MOVE_LEFT"
                 else:
                     return "NONE"
-                #return command
             
     def reset(self):
         """
