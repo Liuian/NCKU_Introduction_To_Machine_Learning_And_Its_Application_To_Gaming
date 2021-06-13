@@ -60,7 +60,7 @@ class MLPlay:
             #print("------")
 
             if self.side == "1P":
-                if self.ball_y > 260:                                           #if ball_y > 240, ball may hit block
+                if (self.ball_y > 260 and velo_ball_y < 0):                                           #if ball_y > 240, ball may hit block
                     dist = self.ball_y - 260
                     if velo_ball_x < 0:
                         des_x_ball = self.ball_x - dist                        #des_x_block record x when ball's y = 260
@@ -96,9 +96,9 @@ class MLPlay:
                 else:                                                           #ball move up
                     if hit == 1:                                                #ball will hit blocker
                         if velo_ball_x < 0:
-                            self.des_x = self.ball_x - (360 - (420 - self.ball_y))
+                            self.des_x = self.ball_x - (320 - (420 - self.ball_y))
                         else:
-                            self.des_x = self.ball_x + (360 - (420 - self.ball_y))
+                            self.des_x = self.ball_x + (320 - (420 - self.ball_y))
                         
                     else:                                                       #ball will NOT hit blocker
                         if velo_ball_x < 0:
@@ -127,8 +127,8 @@ class MLPlay:
                     return "NONE"
             
             else:                                                               #if self.side == 2P
-                
-                if self.ball_y < 240:                                           #if ball_y > 240, ball may hit block
+                """ 
+                if (self.ball_y < 240 and velo_ball_y > 0):                                           #if ball_y > 240, ball may hit block
                     dist = 240 - self.ball_y
                     if velo_ball_x < 0:
                         des_x_ball = self.ball_x - dist                        #des_x_block record x when ball's y = 260
@@ -141,9 +141,9 @@ class MLPlay:
                             des_x_ball = -des_x_ball
                     
                     if velo_blocker < 0:
-                        des_x_blocker = self.blocker_x - (dist / 7) * 5
+                        des_x_blocker = self.blocker_x - (dist / 7 * 5)
                     else:
-                        des_x_blocker = self.blocker_x + (dist / 7) * 5
+                        des_x_blocker = self.blocker_x + (dist / 7 * 5)
                     while des_x_blocker > 200 or des_x_blocker < 0:
                         if des_x_blocker > 200:
                             des_x_blocker = (200 - (des_x_blocker - 200))
@@ -153,8 +153,8 @@ class MLPlay:
                         hit = 1
                     else:
                         hit = 0
-                    #print(hit, des_x_ball, des_x_blocker)
-                
+                    print(hit, des_x_ball, des_x_blocker, self.ball_x, self.ball_y, self.blocker_x)
+                """
                 #judge the ball's x destination
                 if velo_ball_y < 0:                                             #ball move up
                     if velo_ball_x < 0:                                         #ball move left
@@ -164,9 +164,9 @@ class MLPlay:
                 else:                                                           #ball move down  
                     if hit == 1:
                         if velo_ball_x < 0:                                         #ball move left
-                            self.des_x = self.ball_x - (380 - (self.ball_y - 80))
+                            self.des_x = self.ball_x - (320 - (self.ball_y - 80))
                         else:                                                       #ball move right
-                            self.des_x = self.ball_x + (380 - (self.ball_y - 80))
+                            self.des_x = self.ball_x + (320 - (self.ball_y - 80))
                     else:
                         if velo_ball_x < 0:                                         #ball move left
                             self.des_x = self.ball_x - (680 - (self.ball_y - 80))
