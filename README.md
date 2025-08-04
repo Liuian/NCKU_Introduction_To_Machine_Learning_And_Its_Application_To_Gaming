@@ -14,7 +14,8 @@ Originally developed as part of a course at National Cheng Kung University (NCKU
 4. [Project Structure](#4-project-structure)  
 5. [Key Learnings](#5-key-learnings)  
 6. [Future Directions](#6-future-directions)  
-7. [Author](#7-author)
+7. [Visualization](#7-visualization)
+8. [Author](#8-author)
 
 ---
 
@@ -113,9 +114,11 @@ The overall development process follows these steps:
 - Develop unified feature pipelines to enable transfer learning across games.
 - Add interpretability components (e.g., SHAP, LIME) for understanding model behavior.
 
+## 7. Visualization
+![Screenshot 2024-05-30 at 6 30 01 PM](https://github.com/Liuian/1092_INTRODUCTION-TO-MACHINE-LEARNING-AND-ITS-APPLICATION-TO-GAMING/assets/70461575/7935ced9-38dd-4658-8143-9524f8420907)
 ---
 
-## 7. Author
+## 8. Author
 
 **Name**: Liu Yi-An (劉翊安)  
 **Affiliation**: National Cheng Kung University  
